@@ -7,5 +7,5 @@ ClassLoader::addNamespaces(array
  
 ClassLoader::addClasses(array
 (
-	'Contao\EnvironmentInsertTags'                => 'system/modules/pixelSpreadde_core/classes/EnvironmentInsertTags.php'
+	'Contao\EnvironmentInsertTags'                => 'system/modules/pixelSpreadde_core/classes/Environment/EnvironmentInsertTags.php'
 ));
