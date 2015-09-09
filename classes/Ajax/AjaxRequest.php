@@ -20,34 +20,35 @@ class AjaxRequest extends \Frontend
 		\Controller::setStaticUrls('TL_FILES_URL', $GLOBALS['TL_CONFIG']['staticFiles']);
 		\Controller::setStaticUrls('TL_SCRIPT_URL', $GLOBALS['TL_CONFIG']['staticSystem']);
 		\Controller::setStaticUrls('TL_PLUGINS_URL', $GLOBALS['TL_CONFIG']['staticPlugins']);
-	}
+        }
 
 	public function run()
 	{
 		$objModule = $this->Database->prepare("SELECT * FROM tl_module WHERE id=?")->execute(\Input::get('id'));
 		$strClass  = $this->findFrontendModule($objModule->type);
 
-		if ($this->classFileExists($strClass)) {
+		if($this->classFileExists($strClass))
+		{
 			$objModule->typePrefix = 'mod_';
 			$objModule = new $strClass($objModule, $strColumn);
+
+			$objModule->generateAjax();
 		}
-		else {
+		else
+		{
 
 		}
 
-#		$objClass->generateAjax();
-#
-#		if (is_array($GLOBALS['TL_HOOKS']['simpleAjaxFrontend']) && count($GLOBALS['TL_HOOKS']['simpleAjaxFrontend']) > 0) {
-#			// execute every registered callback
-#			foreach ($GLOBALS['TL_HOOKS']['simpleAjaxFrontend'] as $callback) {
-#				$this->import($callback[0]);
-#				$this->$callback[0]->$callback[1]();
-#			}
-#		}
-echo 2;
-#		header('HTTP/1.1 412 Precondition Failed');
-#		die('Invalid AJAX Request.');
-	}
+#               if (is_array($GLOBALS['TL_HOOKS']['simpleAjaxFrontend']) && count($GLOBALS['TL_HOOKS']['simpleAjaxFrontend']) > 0) {
+#                       // execute every registered callback
+#                       foreach ($GLOBALS['TL_HOOKS']['simpleAjaxFrontend'] as $callback) {
+#                               $this->import($callback[0]);
+#                               $this->$callback[0]->$callback[1]();
+#                       }
+#               }
+#               header('HTTP/1.1 412 Precondition Failed');
+#               die('Invalid AJAX Request.');
+        }
 }
 
 $AjaxRequest = new AjaxRequest();
