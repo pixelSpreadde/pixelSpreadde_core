@@ -20,6 +20,13 @@ class EnvironmentInsertTags
 			case "get":
 				$value = $_GET[$arrTag[1]];
 				break;
+			case "login":
+				$value = "logged_out";
+				if(FE_USER_LOGGED_IN)
+				{
+					$value = "logged_in";
+				}
+				break;;
 		}
 
 		return $value;
