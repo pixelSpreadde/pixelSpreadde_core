@@ -26,7 +26,7 @@ class ModuleRedirecter extends \Module
 
 	protected function compile()
 	{
-		if(!FE_USER_LOGGED_IN)
+		if((!FE_USER_LOGGED_IN && $this->redirecter_guests) OR (FE_USER_LOGGED_IN && $this->redirecter_protected))
 		{
 			$objPage = \PageModel::findById($this->jumpTo);
 			$this->redirect($this->generateFrontendUrl($objPage->row(), ''));
